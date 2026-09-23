@@ -1,0 +1,458 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+
+.menu-page {
+    --menu-ink: #2b1a15;
+    --menu-muted: #735d56;
+    --menu-red: #9d2f1d;
+    --menu-cream: #fff4ed;
+    background: var(--menu-cream);
+    color: var(--menu-ink);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 1.4rem clamp(1rem, 4vw, 3.5rem) 3.5rem;
+}
+
+.menu-page-inner {
+    margin: 0 auto;
+    max-width: 1440px;
+}
+
+.menu-intro {
+    padding: 0.75rem 0 1.25rem;
+}
+
+.menu-eyebrow {
+    background: #f2e2d9;
+    border-radius: 999px;
+    color: #705044;
+    display: inline-flex;
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 0.8rem;
+    padding: 0.42rem 0.7rem;
+    text-transform: uppercase;
+}
+
+.menu-intro h1 {
+    color: #8d2412;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(2.1rem, 4.3vw, 3.75rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin: 0;
+}
+
+.menu-intro p:not(.menu-eyebrow) {
+    color: var(--menu-muted);
+    font-size: clamp(0.88rem, 1.25vw, 1.02rem);
+    line-height: 1.55;
+    margin: 0.55rem 0 0;
+    max-width: 680px;
+}
+
+.menu-toolbar {
+    align-items: center;
+    background: #fffdfb;
+    border: 1px solid #f1e2da;
+    border-radius: 0.55rem;
+    box-shadow: 0 8px 18px #7b3a2812;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.1rem;
+    padding: 0.65rem 0.8rem;
+}
+
+.menu-search {
+    align-items: center;
+    background: #fff1ea;
+    color: #9a7c73;
+    display: flex;
+    flex: 1 1 300px;
+    gap: 0.5rem;
+    max-width: 390px;
+    padding: 0.7rem 0.8rem;
+}
+
+.menu-search span {
+    font-size: 0.9rem;
+}
+
+.menu-search input {
+    background: transparent;
+    border: 0;
+    color: var(--menu-ink);
+    font: inherit;
+    min-width: 0;
+    outline: 0;
+    width: 100%;
+}
+
+.menu-search input::placeholder {
+    color: #a3877e;
+}
+
+.menu-dietary-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: flex-end;
+}
+
+.menu-dietary-tags span {
+    background: #fff3ed;
+    border-radius: 999px;
+    color: #69514a;
+    font-size: 0.68rem;
+    padding: 0.4rem 0.65rem;
+    white-space: nowrap;
+}
+
+.menu-dietary-tags span:nth-child(2) {
+    color: #52703b;
+}
+
+.menu-dietary-tags span:nth-child(3) {
+    color: #9b3324;
+}
+
+.menu-categories {
+    display: flex;
+    gap: 0.45rem;
+    margin-bottom: 1.35rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: thin;
+}
+
+.menu-categories button {
+    background: #f9e8e0;
+    border: 0;
+    border-radius: 999px;
+    color: #674e46;
+    cursor: pointer;
+    flex: 0 0 auto;
+    font: inherit;
+    font-size: 0.72rem;
+    padding: 0.65rem 0.9rem;
+    transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.menu-categories button:hover {
+    transform: translateY(-1px);
+}
+
+.menu-categories button.active {
+    background: var(--menu-red);
+    color: #fffaf7;
+}
+
+.menu-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.menu-card {
+    background: #fffdfb;
+    border: 1px solid #f2e5de;
+    border-radius: 0.55rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.menu-card-image {
+    aspect-ratio: 1.55;
+    background: #d9b18f;
+    overflow: hidden;
+    position: relative;
+}
+
+.menu-card-image img {
+    display: block;
+    filter: saturate(1.08) contrast(1.02);
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease;
+    width: 100%;
+}
+
+.menu-card:hover .menu-card-image img {
+    transform: scale(1.04);
+}
+
+.menu-card-tag,
+.menu-card-spice {
+    background: #fffaf5e8;
+    border-radius: 999px;
+    color: #633f32;
+    font-size: 0.58rem;
+    font-weight: 700;
+    left: 0.55rem;
+    padding: 0.32rem 0.5rem;
+    position: absolute;
+    text-transform: uppercase;
+    top: 0.55rem;
+}
+
+.menu-card-spice {
+    bottom: 0.55rem;
+    height: fit-content;
+    left: auto;
+    max-width: 72%;
+    right: 0.55rem;
+    top: auto;
+    text-transform: none;
+}
+
+.menu-card-body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 0.85rem 0.8rem 0.7rem;
+}
+
+.menu-card-body h2 {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.05;
+    margin: 0;
+}
+
+.menu-card-body p {
+    color: #806b63;
+    font-size: 0.73rem;
+    line-height: 1.45;
+    margin: 0.45rem 0 0.8rem;
+}
+
+.menu-card-footer {
+    align-items: center;
+    border-top: 1px solid #f5e9e2;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 0.7rem;
+}
+
+.menu-card-footer strong {
+    color: #982d1a;
+    font-size: 0.92rem;
+    font-weight: 700;
+}
+
+.menu-card-footer button {
+    background: var(--menu-red);
+    border: 0;
+    border-radius: 0.3rem;
+    color: #fffaf7;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.48rem 0.7rem;
+}
+
+.menu-card-footer button:hover {
+    background: #7f2113;
+}
+
+.menu-empty {
+    color: var(--menu-muted);
+    grid-column: 1 / -1;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+.menu-callout {
+    align-items: center;
+    background: #fbe8df;
+    border-radius: 0.55rem;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding: 0.9rem 1rem;
+}
+
+.menu-callout-copy {
+    align-items: center;
+    display: flex;
+    gap: 0.7rem;
+}
+
+.menu-callout-icon {
+    align-items: center;
+    background: var(--menu-red);
+    border-radius: 0.4rem;
+    color: #fffaf7;
+    display: flex;
+    font-size: 1rem;
+    height: 2.1rem;
+    justify-content: center;
+    width: 2.1rem;
+}
+
+.menu-callout strong,
+.menu-callout small {
+    display: block;
+}
+
+.menu-callout strong {
+    font-size: 0.82rem;
+}
+
+.menu-callout small {
+    color: #80685f;
+    font-size: 0.67rem;
+    margin-top: 0.15rem;
+}
+
+.menu-callout button {
+    background: #fffdfb;
+    border: 0;
+    border-radius: 0.35rem;
+    color: #982d1a;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.65rem 0.8rem;
+    white-space: nowrap;
+}
+
+.menu-cart-bar {
+    align-items: center;
+    background: rgba(52, 35, 30, 0.96);
+    border-radius: 0.7rem;
+    bottom: 1rem;
+    box-shadow: 0 12px 24px rgba(52, 35, 30, 0.25);
+    color: #fffaf7;
+    display: flex;
+    gap: 0.8rem;
+    left: 50%;
+    padding: 0.55rem 0.8rem 0.55rem 0.9rem;
+    position: fixed;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.menu-cart-count {
+    align-items: center;
+    background: #f4c76d;
+    border-radius: 50%;
+    color: #2a1d1a;
+    display: flex;
+    font-size: 0.72rem;
+    font-weight: 800;
+    height: 1.7rem;
+    justify-content: center;
+    width: 1.7rem;
+}
+
+.menu-cart-bar span:not(.menu-cart-count) {
+    color: #f5efe9;
+    font-size: 0.76rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.menu-cart-bar strong {
+    color: #fffaf7;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.menu-cart-link {
+    color: #b991ff;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.menu-cart-link:hover {
+    opacity: 0.9;
+}
+
+.menu-reserve-button {
+    background: #fffdfb;
+    border-radius: 0.35rem;
+    color: #982d1a;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.65rem 0.8rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+    .menu-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .menu-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .menu-search {
+        max-width: none;
+    }
+
+    .menu-dietary-tags {
+        justify-content: flex-start;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .menu-callout {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .menu-callout button {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-page {
+        padding-inline: 0.75rem;
+    }
+
+    .menu-grid {
+        gap: 0.65rem;
+    }
+
+    .menu-card-body {
+        padding-inline: 0.65rem;
+    }
+
+    .menu-card h2 {
+        font-size: 1.05rem;
+    }
+
+    .menu-card p {
+        font-size: 0.68rem;
+    }
+
+    .menu-card-spice {
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

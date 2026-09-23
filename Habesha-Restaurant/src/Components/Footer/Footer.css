@@ -1,0 +1,30 @@
+.footer
+{
+    background-color: #d9c0c0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    color: #414040;
+}
+.ref h3{
+    color: #7a2e2e;
+}
+.hour h3
+{
+    color: black;
+}
+.hour h5{
+    color: rgb(126, 140, 98);
+}
+.tradition h3
+{
+    color: black;
+}
+.location h3
+{
+    color: black;
+}
+.location h5
+{
+    color: #7a2e2e;
+}

@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap');
+
+.reservation-page {
+  background: #f7efe9;
+  color: #2f1d1b;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding: 2.5rem clamp(1rem, 4vw, 3rem) 3rem;
+}
+
+.reservation-shell {
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.reservation-header {
+  margin-bottom: 1.4rem;
+}
+
+.reservation-eyebrow {
+  background: #f2e0d4;
+  border-radius: 999px;
+  color: #734d3d;
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.42rem 0.75rem;
+  text-transform: uppercase;
+}
+
+.reservation-header h1 {
+  color: #8c2b1f;
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4.3rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0.6rem 0 0;
+}
+
+.reservation-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1.3fr 0.7fr;
+}
+
+.reservation-card,
+.reservation-summary {
+  background: rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(131, 94, 79, 0.15);
+  border-radius: 1.1rem;
+  box-shadow: 0 12px 30px rgba(58, 36, 29, 0.04);
+}
+
+.reservation-card {
+  padding: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  color: #4d312d;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.field input,
+.field select,
+.field textarea {
+  background: #fffaf8;
+  border: 1px solid rgba(128, 94, 79, 0.2);
+  border-radius: 0.8rem;
+  color: #2f1d1b;
+  font: inherit;
+  padding: 0.82rem 0.9rem;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #b75d3d;
+  box-shadow: 0 0 0 3px rgba(183, 93, 61, 0.1);
+  outline: none;
+}
+
+.field textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.time-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.2rem;
+}
+
+.time-chip {
+  background: #f9ece4;
+  border: 1px solid rgba(134, 94, 78, 0.18);
+  border-radius: 999px;
+  color: #593d37;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 0.52rem 0.7rem;
+}
+
+.time-chip.active {
+  background: #b75d3d;
+  border-color: #b75d3d;
+  color: #fffaf7;
+}
+
+.reservation-summary {
+  padding: 1.4rem 1.2rem;
+}
+
+.summary-card {
+  background: #fffaf8;
+  border: 1px solid rgba(128, 94, 79, 0.12);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.summary-card h2 {
+  color: #3d251f;
+  font-size: 1.15rem;
+  margin: 0 0 1rem;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.72rem;
+  color: #4d312d;
+  font-size: 0.92rem;
+}
+
+.summary-item strong {
+  color: #2e1d1a;
+}
+
+.summary-total {
+  border-top: 1px dashed rgba(111, 78, 67, 0.32);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  color: #2c1d1a;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.summary-total strong {
+  font-size: 1.55rem;
+  letter-spacing: -0.04em;
+}
+
+.primary-button {
+  background: linear-gradient(180deg, #bf5d39 0%, #a6462f 100%);
+  border: none;
+  border-radius: 0.9rem;
+  box-shadow: 0 12px 18px rgba(170, 78, 50, 0.18);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+  margin-top: 1.1rem;
+  padding: 0.92rem 1rem;
+  width: 100%;
+}
+
+.meta-list {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.meta-item {
+  background: rgba(255,255,255,0.25);
+  border: 1px solid rgba(128, 94, 79, 0.1);
+  border-radius: 0.8rem;
+  color: #56413d;
+  font-size: 0.82rem;
+  padding: 0.75rem 0.8rem;
+}
+
+.meta-item strong {
+  display: block;
+  color: #35211f;
+  margin-bottom: 0.2rem;
+}
+
+@media (max-width: 900px) {
+  .reservation-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .reservation-card,
+  .reservation-summary {
+    padding: 1rem;
+  }
+}
