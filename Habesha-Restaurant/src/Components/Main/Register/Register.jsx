@@ -1,35 +1,26 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import './Register.css'
+import { useAuthStore } from '../../../store/useAuthStore'
+import { registerSchema } from '../../../validation/schemas'
 
-function Register({ onUserAuthenticated }) {
+function Register() {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    password: '',
+  const setCurrentUser = useAuthStore((state) => state.setCurrentUser)
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { fullName: '', email: '', password: '' },
   })
-  const [message, setMessage] = useState('')
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
+  const onSubmit = (formData) => {
     const fullName = formData.fullName.trim()
     const email = formData.email.trim()
-
-    if (!fullName || !email || !formData.password.trim()) {
-      setMessage('Please fill in all fields.')
-      return
-    }
 
     const users = JSON.parse(localStorage.getItem('habesha-users') || '[]')
     const emailExists = users.some(
@@ -37,7 +28,7 @@ function Register({ onUserAuthenticated }) {
     )
 
     if (emailExists) {
-      setMessage('This email is already registered.')
+      setError('root', { message: 'This email is already registered.' })
       return
     }
 
@@ -49,8 +40,7 @@ function Register({ onUserAuthenticated }) {
 
     users.push(newUser)
     localStorage.setItem('habesha-users', JSON.stringify(users))
-    localStorage.setItem('habesha-current-user', JSON.stringify(newUser))
-    onUserAuthenticated({
+    setCurrentUser({
       fullName: newUser.fullName,
       email: newUser.email,
     })
@@ -64,47 +54,41 @@ function Register({ onUserAuthenticated }) {
         <p className="auth-kicker">Create account</p>
         <h1>Register</h1>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <label>
             <span>Full name</span>
             <input
               type="text"
-              name="fullName"
               placeholder="Your full name"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
+              {...register('fullName')}
             />
+            {errors.fullName && <span className="error-text">{errors.fullName.message}</span>}
           </label>
 
           <label>
             <span>Email</span>
             <input
               type="email"
-              name="email"
               placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
+              {...register('email')}
             />
+            {errors.email && <span className="error-text">{errors.email.message}</span>}
           </label>
 
           <label>
             <span>Password</span>
             <input
               type="password"
-              name="password"
               placeholder="Create a password"
-              value={formData.password}
-              onChange={handleChange}
-              required
+              {...register('password')}
             />
+            {errors.password && <span className="error-text">{errors.password.message}</span>}
           </label>
 
           <button type="submit">Create account</button>
         </form>
 
-        {message && <p className="auth-message">{message}</p>}
+        {errors.root && <p className="auth-message">{errors.root.message}</p>}
       </div>
     </main>
   )

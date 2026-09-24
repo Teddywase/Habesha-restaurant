@@ -1,0 +1,53 @@
+.error-boundary {
+    align-items: center;
+    background: #f7efe9;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+.error-boundary-card {
+    background: #fffaf8;
+    border: 1px solid rgba(120, 88, 76, 0.18);
+    border-radius: 1rem;
+    box-shadow: 0 12px 25px rgba(55, 38, 32, 0.08);
+    max-width: 30rem;
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.error-boundary-kicker {
+    color: #8a5647;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    margin: 0 0 0.6rem;
+    text-transform: uppercase;
+}
+
+.error-boundary-card h1 {
+    color: #7a2d22;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 0 0 0.75rem;
+}
+
+.error-boundary-card p:not(.error-boundary-kicker) {
+    color: #6b4a42;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.error-boundary-card button {
+    background: #a6462f;
+    border: 0;
+    border-radius: 0.75rem;
+    color: #fff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.2rem;
+}

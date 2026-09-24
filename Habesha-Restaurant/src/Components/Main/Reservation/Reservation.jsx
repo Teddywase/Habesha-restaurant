@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useForm, useWatch } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import './Reservation.css'
+import { reservationSchema } from '../../../validation/schemas'
 
 const timeSlots = ['5:30 PM', '6:00 PM', '6:30 PM', '7:00 PM', '7:30 PM', '8:00 PM']
 
@@ -15,16 +17,20 @@ const initialForm = {
 }
 
 function Reservation() {
-    const [formData, setFormData] = useState(initialForm)
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        control,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(reservationSchema),
+        defaultValues: initialForm,
+    })
+    const formData = useWatch({ control })
 
-    const handleChange = (event) => {
-        const { name, value } = event.target
-        setFormData((current) => ({ ...current, [name]: value }))
-    }
-
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log('Reservation submitted:', formData)
+    const onSubmit = (values) => {
+        console.log('Reservation submitted:', values)
     }
 
     return (
@@ -36,7 +42,7 @@ function Reservation() {
                 </header>
 
                 <div className="reservation-grid">
-                    <form className="reservation-card" onSubmit={handleSubmit}>
+                    <form id="reservation-form" className="reservation-card" onSubmit={handleSubmit(onSubmit)} noValidate>
                         <div className="form-grid">
                             <div className="field">
                                 <label htmlFor="name">Full name</label>
@@ -44,10 +50,10 @@ function Reservation() {
                                     id="name"
                                     name="name"
                                     type="text"
-                                    value={formData.name}
-                                    onChange={handleChange}
                                     placeholder="Your name"
+                                    {...register('name')}
                                 />
+                                {errors.name && <span className="error-text">{errors.name.message}</span>}
                             </div>
 
                             <div className="field">
@@ -56,10 +62,10 @@ function Reservation() {
                                     id="phone"
                                     name="phone"
                                     type="tel"
-                                    value={formData.phone}
-                                    onChange={handleChange}
                                     placeholder="+251 9xx xxx xxx"
+                                    {...register('phone')}
                                 />
+                                {errors.phone && <span className="error-text">{errors.phone.message}</span>}
                             </div>
 
                             <div className="field full">
@@ -68,10 +74,10 @@ function Reservation() {
                                     id="email"
                                     name="email"
                                     type="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
                                     placeholder="you@email.com"
+                                    {...register('email')}
                                 />
+                                {errors.email && <span className="error-text">{errors.email.message}</span>}
                             </div>
 
                             <div className="field">
@@ -80,31 +86,33 @@ function Reservation() {
                                     id="date"
                                     name="date"
                                     type="date"
-                                    value={formData.date}
-                                    onChange={handleChange}
+                                    {...register('date')}
                                 />
+                                {errors.date && <span className="error-text">{errors.date.message}</span>}
                             </div>
 
                             <div className="field">
                                 <label htmlFor="guests">Guests</label>
-                                <select id="guests" name="guests" value={formData.guests} onChange={handleChange}>
+                                <select id="guests" {...register('guests')}>
                                     <option value="2">2 guests</option>
                                     <option value="4">4 guests</option>
                                     <option value="6">6 guests</option>
                                     <option value="8">8 guests</option>
                                     <option value="10">10 guests</option>
                                 </select>
+                                {errors.guests && <span className="error-text">{errors.guests.message}</span>}
                             </div>
 
                             <div className="field full">
                                 <label htmlFor="occasion">Occasion</label>
-                                <select id="occasion" name="occasion" value={formData.occasion} onChange={handleChange}>
+                                <select id="occasion" {...register('occasion')}>
                                     <option value="Dinner">Dinner</option>
                                     <option value="Birthday">Birthday</option>
                                     <option value="Anniversary">Anniversary</option>
                                     <option value="Family gathering">Family gathering</option>
                                     <option value="Business meeting">Business meeting</option>
                                 </select>
+                                {errors.occasion && <span className="error-text">{errors.occasion.message}</span>}
                             </div>
 
                             <div className="field full">
@@ -115,12 +123,13 @@ function Reservation() {
                                             key={slot}
                                             type="button"
                                             className={`time-chip ${formData.time === slot ? 'active' : ''}`}
-                                            onClick={() => setFormData((current) => ({ ...current, time: slot }))}
+                                            onClick={() => setValue('time', slot, { shouldDirty: true, shouldValidate: true })}
                                         >
                                             {slot}
                                         </button>
                                     ))}
                                 </div>
+                                {errors.time && <span className="error-text">{errors.time.message}</span>}
                             </div>
 
                             <div className="field full">
@@ -128,10 +137,10 @@ function Reservation() {
                                 <textarea
                                     id="notes"
                                     name="notes"
-                                    value={formData.notes}
-                                    onChange={handleChange}
                                     placeholder="Allergy notes, celebration details, or seating preferences..."
+                                    {...register('notes')}
                                 />
+                                {errors.notes && <span className="error-text">{errors.notes.message}</span>}
                             </div>
                         </div>
                     </form>
@@ -162,7 +171,7 @@ function Reservation() {
                                 <strong>ETB 1,200</strong>
                             </div>
 
-                            <button type="submit" className="primary-button" onClick={handleSubmit}>Book my table</button>
+                            <button type="submit" form="reservation-form" className="primary-button">Book my table</button>
                         </div>
 
                         <div className="meta-list">

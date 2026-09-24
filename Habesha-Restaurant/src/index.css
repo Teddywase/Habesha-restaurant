@@ -1,0 +1,9 @@
+.route-loading {
+	align-items: center;
+	color: #7a2d22;
+	display: flex;
+	font-weight: 700;
+	justify-content: center;
+	min-height: 50vh;
+	padding: 2rem;
+}

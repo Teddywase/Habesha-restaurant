@@ -1,39 +1,28 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import './Login.css'
+import { useAuthStore } from '../../../store/useAuthStore'
+import { loginSchema } from '../../../validation/schemas'
 
-function Login({ onUserAuthenticated }) {
+function Login() {
   const navigate = useNavigate()
-  const savedUser = JSON.parse(localStorage.getItem('habesha-current-user') || 'null')
+  const currentUser = useAuthStore((state) => state.currentUser)
+  const setCurrentUser = useAuthStore((state) => state.setCurrentUser)
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: '', password: '' },
   })
-  const [message, setMessage] = useState(
-    savedUser ? `Signed in as ${savedUser.fullName}` : ''
-  )
-  const [loggedUser] = useState(savedUser)
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
+  const onSubmit = (formData) => {
     const email = formData.email.trim()
-
-    if (!email || !formData.password.trim()) {
-      setMessage('Please fill in all fields.')
-      return
-    }
-
     const users = JSON.parse(localStorage.getItem('habesha-users') || '[]')
     const matchedUser = users.find(
       (user) =>
@@ -42,7 +31,7 @@ function Login({ onUserAuthenticated }) {
     )
 
     if (!matchedUser) {
-      setMessage('Invalid email or password.')
+      setError('root', { message: 'Invalid email or password.' })
       return
     }
 
@@ -51,8 +40,7 @@ function Login({ onUserAuthenticated }) {
       email: matchedUser.email,
     }
 
-    localStorage.setItem('habesha-current-user', JSON.stringify(userInfo))
-    onUserAuthenticated(userInfo)
+    setCurrentUser(userInfo)
     navigate('/')
   }
 
@@ -62,42 +50,46 @@ function Login({ onUserAuthenticated }) {
         <p className="auth-kicker">Welcome back</p>
         <h1>Sign In</h1>
 
-        {loggedUser && (
+        {currentUser && (
           <div className="user-summary">
-            <strong>{loggedUser.fullName}</strong>
-            <span>{loggedUser.email}</span>
+            <strong>{currentUser.fullName}</strong>
+            <span>{currentUser.email}</span>
           </div>
         )}
 
-        <form className="auth-form" onSubmit={handleSubmit}>
+        <form className="auth-form" onSubmit={handleSubmit(onSubmit)} noValidate>
           <label>
             <span>Email</span>
             <input
               type="email"
-              name="email"
               placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
+              {...register('email')}
             />
+            {errors.email && <span className="error-text">{errors.email.message}</span>}
           </label>
 
           <label>
             <span>Password</span>
             <input
               type="password"
-              name="password"
               placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              required
+              {...register('password')}
             />
+            {errors.password && <span className="error-text">{errors.password.message}</span>}
           </label>
 
           <button type="submit">Sign In</button>
         </form>
 
-        {message && <p className="auth-message">{message}</p>}
+        <p className="auth-switch">
+          Don't have an account? <Link to="/register">Create one</Link>
+        </p>
+
+        {(currentUser || errors.root) && (
+          <p className="auth-message">
+            {errors.root?.message || `Signed in as ${currentUser.fullName}`}
+          </p>
+        )}
       </div>
     </main>
   )

@@ -1,19 +1,21 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import './Checkout.css'
+import { checkoutSchema } from '../../../validation/schemas'
 
 function Checkout({ cartItems = [], cartTotal = 0, currentUser = null, onClearCart = () => {} }) {
   const navigate = useNavigate()
-  const initialForm = {
-    name: '',
-    phone: '',
-    email: '',
-    delivery: 'home',
-    address: '',
-  }
-
-  const [formData, setFormData] = useState(initialForm)
-  const [errors, setErrors] = useState({})
+  const initialForm = { name: '', phone: '', email: '', delivery: 'home', address: '' }
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(checkoutSchema),
+    defaultValues: initialForm,
+  })
 
   const orderItems = cartItems.map((item) => ({
     id: item.id,
@@ -27,49 +29,13 @@ function Checkout({ cartItems = [], cartTotal = 0, currentUser = null, onClearCa
   const vat = Math.round(subtotal * 0.15)
   const total = subtotal + vat
 
-  const handleChange = (event) => {
-    const { name, value } = event.target
-
-    setFormData((current) => ({
-      ...current,
-      [name]: value,
-    }))
-
-    setErrors((current) => ({
-      ...current,
-      [name]: '',
-    }))
-  }
-
-  const validateForm = () => {
-    const nextErrors = {}
-
-    if (!formData.name.trim()) nextErrors.name = 'Contact name is required.'
-    if (!formData.phone.trim()) nextErrors.phone = 'Phone number is required.'
-    if (!formData.email.trim()) nextErrors.email = 'Email is required.'
-    if (!formData.address.trim()) nextErrors.address = 'Delivery address is required.'
-
-    return nextErrors
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
+  const onSubmit = () => {
     if (!currentUser) {
       alert('Please sign in before confirming your order.')
       navigate('/login')
       return
     }
-
-    const nextErrors = validateForm()
-    setErrors(nextErrors)
-
-    if (Object.keys(nextErrors).length > 0) {
-      return
-    }
-
-    setFormData(initialForm)
-    setErrors({})
+    reset(initialForm)
     onClearCart()
     localStorage.removeItem('habesha-cart')
     alert('Order placed successfully!')
@@ -96,7 +62,7 @@ function Checkout({ cartItems = [], cartTotal = 0, currentUser = null, onClearCa
         </div>
 
         <div className="checkout-grid">
-          <form id="checkout-form" className="checkout-panel" onSubmit={handleSubmit} noValidate>
+          <form id="checkout-form" className="checkout-panel" onSubmit={handleSubmit(onSubmit)} noValidate>
             <h2 className="checkout-section-title">Delivery details</h2>
 
             <div className="checkout-form-box">
@@ -110,30 +76,24 @@ function Checkout({ cartItems = [], cartTotal = 0, currentUser = null, onClearCa
                   <label htmlFor="name">Contact Name</label>
                   <input
                     id="name"
-                    name="name"
                     type="text"
-                    value={formData.name}
-                    onChange={handleChange}
                     placeholder="Abebe Bekele"
                     className={errors.name ? 'input-error' : ''}
-                    required
+                    {...register('name')}
                   />
-                  {errors.name && <span className="error-text">{errors.name}</span>}
+                  {errors.name && <span className="error-text">{errors.name.message}</span>}
                 </div>
 
                 <div className="input-wrap">
                   <label htmlFor="phone">Phone</label>
                   <input
                     id="phone"
-                    name="phone"
                     type="tel"
-                    value={formData.phone}
-                    onChange={handleChange}
                     placeholder="+251 911 145 7890"
                     className={errors.phone ? 'input-error' : ''}
-                    required
+                    {...register('phone')}
                   />
-                  {errors.phone && <span className="error-text">{errors.phone}</span>}
+                  {errors.phone && <span className="error-text">{errors.phone.message}</span>}
                 </div>
               </div>
 
@@ -142,24 +102,19 @@ function Checkout({ cartItems = [], cartTotal = 0, currentUser = null, onClearCa
                   <label htmlFor="email">Email</label>
                   <input
                     id="email"
-                    name="email"
                     type="email"
-                    value={formData.email}
-                    onChange={handleChange}
                     placeholder="abebe@example.com"
                     className={errors.email ? 'input-error' : ''}
-                    required
+                    {...register('email')}
                   />
-                  {errors.email && <span className="error-text">{errors.email}</span>}
+                  {errors.email && <span className="error-text">{errors.email.message}</span>}
                 </div>
 
                 <div className="input-wrap">
                   <label htmlFor="delivery">Delivery option</label>
                   <select
                     id="delivery"
-                    name="delivery"
-                    value={formData.delivery}
-                    onChange={handleChange}
+                    {...register('delivery')}
                   >
                     <option value="home">Home delivery</option>
                     <option value="pickup">Pickup</option>
@@ -171,14 +126,11 @@ function Checkout({ cartItems = [], cartTotal = 0, currentUser = null, onClearCa
                 <label htmlFor="address">Delivery address</label>
                 <textarea
                   id="address"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleChange}
                   placeholder="Bole Road, Bole Michael, Addis Ababa"
                   className={errors.address ? 'input-error' : ''}
-                  required
+                  {...register('address')}
                 />
-                {errors.address && <span className="error-text">{errors.address}</span>}
+                {errors.address && <span className="error-text">{errors.address.message}</span>}
               </div>
 
               <div className="delivery-option">
