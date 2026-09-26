@@ -15,7 +15,9 @@ The experience is centered around communal dining, traditional spices, teff inje
 - Checkout page with order summary
 - Reservation form
 - Client-side registration, login, and logout flows
-- Responsive layout for desktop and mobile screens
+- Responsive layouts for desktop, tablet, and mobile screens
+- Mobile hamburger menu for navigation and account links
+- Image-first mobile dish details with a pinned quantity and order bar
 
 ## Tech Stack
 
@@ -84,12 +86,12 @@ npm run lint
 src/
 	App.jsx                 Application routes and shared cart state
 	Components/
-		Header/               Navigation and account/cart controls
+		Header/               Navigation, mobile hamburger, and account/cart controls
 		Footer/               Site footer
 		Main/
 			Home/               Hero, specials, testimonials, and CTA sections
 			Menu/               Searchable and filterable menu
-			MenuDetail/         Individual dish details
+			MenuDetail/         Responsive individual dish details and order controls
 			Cart/               Cart management
 			CheckOut/           Checkout flow
 			Reservation/        Reservation form
