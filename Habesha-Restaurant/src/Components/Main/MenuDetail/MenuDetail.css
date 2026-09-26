@@ -269,23 +269,173 @@
 }
 
 @media (max-width: 560px) {
-  .detail-header-row,
-  .detail-actions,
+  .menu-detail-page {
+    background: #fff8f5;
+    padding: 0.7rem 0 6.5rem;
+  }
+
+  .menu-detail-topbar {
+    margin: 0;
+    padding: 0 0.85rem 0.65rem;
+  }
+
+  .detail-back-button {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0.35rem 0;
+  }
+
+  .menu-detail-shell {
+    gap: 0;
+    padding: 0;
+  }
+
+  .menu-detail-gallery {
+    gap: 0.65rem;
+  }
+
+  .detail-hero-card {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    position: relative;
+  }
+
+  .detail-badges {
+    align-items: flex-start;
+    left: 0.8rem;
+    padding: 0;
+    position: absolute;
+    right: 0.8rem;
+    top: 0.8rem;
+    z-index: 1;
+  }
+
+  .detail-signature,
+  .detail-offer {
+    border-radius: 0.35rem;
+    font-size: 0.62rem;
+    line-height: 1.35;
+    max-width: 48%;
+    padding: 0.48rem 0.6rem;
+  }
+
+  .detail-image-wrap {
+    padding: 0;
+  }
+
+  .detail-image-wrap img {
+    aspect-ratio: 1.12;
+    border-radius: 0;
+    object-position: center;
+  }
+
   .detail-meta-row {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0.65rem 0.9rem 0;
+  }
+
+  .detail-gallery-grid {
+    gap: 0.45rem;
+    padding: 0 0.85rem;
+  }
+
+  .detail-gallery-grid img {
+    border-radius: 0.55rem;
+    height: 76px;
+  }
+
+  .menu-detail-content {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 1.3rem 1rem 1rem;
+  }
+
+  .detail-header-row,
+  .detail-actions {
     align-items: flex-start;
   }
 
+  .detail-header-row {
+    gap: 0.5rem;
+  }
+
+  .detail-header-row h1 {
+    font-size: clamp(1.9rem, 8vw, 2.45rem);
+    line-height: 1.08;
+  }
+
+  .detail-price {
+    color: #8d2412;
+    font-size: 1rem;
+  }
+
   .detail-info-row {
-    grid-template-columns: 1fr;
+    gap: 0.45rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: 1.1rem;
+  }
+
+  .detail-info-item {
+    border-radius: 0.55rem;
+    padding: 0.65rem 0.55rem;
+  }
+
+  .detail-info-item .label {
+    font-size: 0.64rem;
+  }
+
+  .detail-info-item .value {
+    font-size: 0.78rem;
+    overflow-wrap: anywhere;
+  }
+
+  .detail-description {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin: 0.75rem 0 1.1rem;
+  }
+
+  .detail-content-box {
+    border-radius: 0.65rem;
+    padding: 0.9rem;
   }
 
   .detail-qty-control {
-    width: 100%;
-    justify-content: center;
+    flex: 0 0 auto;
+    gap: 0.65rem;
+    padding: 0.45rem 0.65rem;
   }
 
   .detail-add-button {
-    width: 100%;
+    min-width: 0;
+    padding: 0.85rem 0.7rem;
+  }
+
+  .detail-actions {
+    align-items: center;
+    background: rgba(255, 250, 247, 0.97);
+    border-top: 1px solid rgba(120, 93, 79, 0.14);
+    bottom: 0;
+    box-shadow: 0 -8px 24px rgba(84, 55, 48, 0.08);
+    gap: 0.55rem;
+    left: 0;
+    margin: 0;
+    padding: 0.65rem 0.75rem max(0.65rem, env(safe-area-inset-bottom));
+    position: fixed;
+    right: 0;
+    z-index: 10;
+  }
+
+  .detail-add-button {
+    border-radius: 0.65rem;
+    font-size: 0.9rem;
+    white-space: normal;
   }
 }
